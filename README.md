@@ -2,8 +2,9 @@
 
 
 With this guide i will show you how to control a ledstrip using a telegram bot, to simulate a digitally controlled vinyl record player. You wil be able to change the album and automatically switch to that albums RPM, aswell as adjusting the volume.
+<br /><br /><br />
 
-Requirements:
+# Requirements:
 - ESP32 DevKit V1 board
 - NeoPixel LED strip 
 - Wires
@@ -50,11 +51,13 @@ You will need to install the following libraries:
 <br /><br /><br />
 
 # Step 4: Create a new Sketch
-- Go to file -> New Sketch.
+- Go to file -> New Sketch.<br /><br />
+<img height="200px" src="sketch.png"> <br />
 <br /><br /><br />
 
 
-# Step 5: 
+# Step 5: Code setup
+- Copy the code
 
 
 
