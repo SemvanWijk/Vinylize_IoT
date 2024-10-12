@@ -28,7 +28,8 @@ You can now message your new bot. Make sure you are chatting with your bit, and 
 <img height="300px" src="board_manager.png"> <br />
 - While here, look for esp32 and install esp32 by Espressif Systems.<br /><br />
 <img height="300px" src="board_library.png"> <br />
-- Now select DOIT ESP32 DEVKIT V1.
+- Now select DOIT ESP32 DEVKIT V1.<br /><br />
+<img height="300px" src="select_board.png"> <br />
 <br /><br /><br />
 
 # Step 3: Install Libraries
