@@ -59,8 +59,9 @@ You will need to install the following libraries:
 Take your board and ledstrip and do the following:
 - Put the GND cable on a GND pin
 - Put the +5V cable on a 3V3 pin
-- Put the DIN cable on any of your D pins, I used D5, as its closest to the rest of used pins, but it doesnt really matter which one you use.
-
+- Put the DIN cable on any of your D pins, I used D5, as its closest to the rest of used pins, but it doesnt really matter which one you use.<br /><br />
+|<img height="300px" src="board.jpeg"> |<img height="300px" src="cables.jpeg">|<br />
+<br /><br /><br />
 
 
 
@@ -92,7 +93,26 @@ Adafruit_NeoPixel strip(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
 ```
+<br /><br /><br />
 
+# Step 7: Adding LPs
+We are goin to need some LPs with different RPMs, so we'll add those in ourselves for now. You can add any amount off LPs, but in this case i asked ChatGPT for some populair ones, making sure 33, 45 and 78 RPM are all represented.
+
+```
+// Define LP records and their corresponding RPM values
+struct LPRecord {
+  String name;
+  int rpm;
+};
+
+LPRecord records[] = {
+  {"Abbey Road", 33},
+  {"Thriller", 45},
+  {"Blue Train", 33},
+  {"Kind of Blue", 33},
+  {"Elvis Presley", 78}
+};
+```
 
 
 
