@@ -1,10 +1,10 @@
 # Vinylize_IoT
 
 
-With this guide i will show you how to control a ledstrip using a telegram bot, to simulate a digitally controlled vinyl record player. You wil be able to change the album and automatically switch to that albums RPM, aswell as adjusting the volume.
+With this guide i will show you how to control a ledstrip using a telegram bot, to simulate a digitally controlled vinyl record player. You wil be able to change the LP(vinyl record) and automatically switch to that LPs RPM(revolutions per minute), aswell as adjusting the volume.
 <br /><br /><br />
 
-# Requirements:
+## Requirements:
 - ESP32 DevKit V1 board
 - NeoPixel LED strip 
 - Wires
@@ -13,7 +13,7 @@ With this guide i will show you how to control a ledstrip using a telegram bot, 
 - Phone with Telegram installed
 <br /><br /><br />
 
-# Step 1: Creating your Telegram Bot
+## Step 1: Creating your Telegram Bot
 
 - Open Telegram and search for the BotFather.
 - Use the command "/newbot" to create a new bot.
@@ -38,7 +38,7 @@ You can now message your new bot. Make sure you are chatting with your own bot, 
 <img height="300px" src="select_board.png"> <br />
 <br /><br /><br />
 
-# Step 3: Install Libraries
+## Step 3: Install Libraries
 
 You will need to install the following libraries:
 - Adafruit NeoPixel: For controlling the NeoPixel LED strip.
@@ -50,12 +50,12 @@ You will need to install the following libraries:
 
 <br /><br /><br />
 
-# Step 4: Create a new Sketch
+## Step 4: Create a new Sketch
 - Go to file -> New Sketch.<br /><br />
 <img height="200px" src="sketch.png"> <br />
 <br /><br /><br />
 
-# Step 5: Assemble Your board
+## Step 5: Assemble Your board
 Take your board and ledstrip and do the following:
 - Put the GND cable on a GND pin
 - Put the +5V cable on a 3V3 pin
@@ -65,7 +65,7 @@ Take your board and ledstrip and do the following:
 
 
 
-# Step 6: Code Setup
+## Step 6: Code Setup
 We will now ensure that all the required libraries are included, aswell as defining the key settings for our project. Copy the code and adjust the following
 - Change the SSID to the name of your wifi network, Wifi password to the respective and Bot token to the token you recieved from the BotFather. The token should follow this structure: XXXXX:XXXXXXXXXXXXXXX
 - Make sure the NUMPIXELS is equal to the amount of LEDs on your strip, there are 15 in my case.
@@ -96,7 +96,7 @@ UniversalTelegramBot bot(BOT_TOKEN, client);
 ```
 <br /><br /><br />
 
-# Step 7: Adding LPs
+## Step 7: Adding LPs
 We are goin to need some LPs with different RPMs, so we'll add those in ourselves for now. You can add any amount off LPs, but in this case i asked ChatGPT for some populair ones, making sure 33, 45 and 78 RPM are all represented.
 To simulate different vinyl albums and their respective RPMs, we’ll create a custom structure to store the names and RPMs of each LP. This information will be used to control the LED colors based on the selected LPs RPM.
 
@@ -118,8 +118,7 @@ LPRecord records[] = {
 ```
 <br /><br /><br />
 
-# Step 8: Initializing Current Volume and Color
-
+## Step 8: Initializing Current Volume and Color
 After initializing the NeoPixel strip, we also need to set up variables to keep track of the current volume and the color of the LEDs based on the selected LP’s RPM.
 ```
 int currentVolume = NUMPIXELS;  // Start with all LEDs on (full volume)
@@ -129,7 +128,7 @@ currentVolumetracks the current volume level by determining how many LEDs are li
 currentColor holds the color of the LEDs based on the selected LP’s RPM. It will be updated when you choose a new LP via the Telegram bot. Initially, it’s set to white.
 <br /><br /><br />
 
-# Step 9: Bot Commands
+## Step 9: Bot Commands
 Now that we’ve set up the basics, it's time to implement the functionality that allows the Telegram bot to respond to user commands. The bot will handle two main types of interactions:
 - Adjusting the volume by turning LEDs on or off. The LEDs pixels symbolise the volume, with all light on representing a full volume bar, and no lights on representing the volume being off.
 - Changing the currently playing LP, which, depending on the record's RPM, adjusts to color of the strip, representing the different speeds with a different color.
@@ -149,14 +148,17 @@ void updateVolumeDisplay() {
   strip.show();  // Update the strip with new settings
 }
 ```
-The code clears turns off all LEDs, then checks the current volume level to light up the corresponding number of LEDs on the strip. It sets these LEDs to the color associated with the selected LPs RPM and updates the LED strip to display the changes
-<br \><br \>
-LP Selection<br \>
-When selecting a new LP, we will send the bot a message like “Put on Abbey Road.” The bot will look up the RPM for that album and change the LED color accordingly. Here’s how we define the colors based on RPM:
+The code turns off all LEDs, then checks the current volume level to light up the right number of LEDs. It sets them to the color of the selected LPs RPM and updates the LED strip to show these changes.
+<br /><br /><br />
+
+### LP Selection<br />
+
+When selecting a new LP, we will send the bot a message like “Put on Abbey Road.” The bot will look up the RPM for that LP and change the LED color accordingly. Here’s how we define the colors based on RPM:
 
 - 33 RPM: Green.
 - 45 RPM: Blue.
 - 78 RPM: Red.
+
 Here’s the code to handle the LP selection and change the LED color:
 ```
 // Function to update the LED color based on the album's RPM
@@ -171,33 +173,28 @@ void setColorByRPM(int rpm) {
   updateVolumeDisplay();  // Apply the new color to the LED strip
 }
 ```
+Make sure you copy both of these pieces of code.
+<br /><br /><br />
+
+## Step 10: Void Setup
+In the Void Setup, we start up our board, connect it to the internet, and activate the LED strip and Telegram bot.
+- 
+
+
+
+
+## Step 11: Void Loop
 
 
 
 
 
+## Step 12: Test it Out!
 
 
 
 
-# Step 10: Void Setup
-
-
-
-
-
-# Step 11: Void Loop
-
-
-
-
-
-# Step 12: Test it Out!
-
-
-
-
-# Code up Until Now
+## Code up Until Now
 With everything explained, here is the complete code that has been used until now:
 ```
 #include <WiFi.h>
