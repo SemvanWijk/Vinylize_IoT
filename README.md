@@ -21,7 +21,7 @@ Requirements:
 <img height="500px" src="botfather.jpeg"> <br />
   
 You can now message your new bot. Make sure you are chatting with your own bot, and not with the BotFather. To get that response from your own bot, you will have to keep following the guide.
-
+<img height="500px" src="botfather.jpeg"> 
 <br /><br /><br />
 
 # Step 2: Set Up Your ESP32 with Arduino IDE
