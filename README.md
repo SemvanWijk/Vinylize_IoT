@@ -41,7 +41,12 @@ You can now message your new bot. Make sure you are chatting with your own bot, 
 
 You will need to install the following libraries:
 - Adafruit NeoPixel: For controlling the NeoPixel LED strip.
-- UniversalTelegramBot: For communication with the Telegram bot.
+- UniversalTelegramBot: For communication with the Telegram bot.<br /><br />
+|<img height="400px" src="neopixel.png"> |<img height="400px" src="tgbot.png">|
+
+
+
+
 <br /><br /><br />
 
 # Step 4: Create a new Sketch
