@@ -24,8 +24,10 @@ You can now message your new bot. Make sure you are chatting with your bit, and 
 
 # Step 2: Set Up Your ESP32 with Arduino IDE
 
-- Go to Tools -> Boards -> Board Manager.
-- While here, look for esp32 and install esp32 by Espressif Systems.
+- Go to Tools -> Boards -> Board Manager.<br /><br />
+![Board manager](board_manager.png) <br />
+- While here, look for esp32 and install esp32 by Espressif Systems.<br /><br />
+<img height="200px" src="board_library.png"> <br />
 - Now select DOIT ESP32 DEVKIT V1.
 <br /><br /><br />
 
@@ -39,6 +41,7 @@ You will need to install the following libraries:
 # Step 4: Create a new Sketch
 - Go to file -> New Sketch.
 <br /><br /><br />
+
 
 # Step 5: 
 
