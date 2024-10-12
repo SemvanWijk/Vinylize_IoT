@@ -177,8 +177,34 @@ Make sure you copy both of these pieces of code.
 <br /><br /><br />
 
 ## Step 10: Void Setup
-In the Void Setup, we start up our board, connect it to the internet, and activate the LED strip and Telegram bot.
-- 
+In the Void Setup, we start up our board, connect it to the internet, and set up the LED strip and Telegram bot.
+- Open the serial monit and set the Baus rate to 115200.<br /><br />
+|<img height="300px" src="serial_monitor.png"> |<img height="300px" src="baud.png">|<br />
+- Now put the following code in your file:
+```
+void setup() {
+  // Initialize serial communication for debugging
+  Serial.begin(115200);
+
+  // Connect to Wi-Fi
+  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(1000);
+    Serial.println("Connecting to WiFi...");
+  }
+  Serial.println("Connected to WiFi");
+
+  // Initialize the NeoPixel LED strip
+  strip.begin();
+  strip.show();  // Turn off all LEDs initially
+  strip.setBrightness(50);  // Optional: Set brightness level (0-255)
+
+  // Setup Telegram Bot
+  client.setInsecure();  // Bypass SSL checks
+  Serial.println("Telegram bot ready");
+}
+``` 
+
 
 
 
