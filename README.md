@@ -20,8 +20,11 @@ Requirements:
 - Save the bot token, which will be used in your code to connect to the bot.<br /><br />
 <img height="500px" src="botfather.jpeg"> <br />
   
-You can now message your new bot. Make sure you are chatting with your own bot, and not with the BotFather. To get that response from your own bot, you will have to keep following the guide.
-<img height="500px" src="botfather.jpeg"> 
+You can now message your new bot. Make sure you are chatting with your own bot, and not with the BotFather. <br /><br />
+<img height="200px" src="bot_dont.jpeg"><br />
+<br />You can click the link to go to your own bot.<br /><br />
+<img height="200px" src="bot_do.jpeg"> <br />
+<br />To get this response from your own bot, you will have to keep following the guide.
 <br /><br /><br />
 
 # Step 2: Set Up Your ESP32 with Arduino IDE
