@@ -10,12 +10,14 @@ Requirements:
 - Laptop with the Arduino IDE installed
 - Internet connection
 - Phone with Telegram installed
+<br /><br /><br />
 
 # Step 1: Creating your Telegram Bot
 - Open Telegram and search for the BotFather.
 - Use the command "/newbot" to create a new bot.
 - Give the bot a name and username.
 - Save the bot token, which will be used in your code to connect to the bot.
+<br /><br /><br />
 
 # Step 2: Set Up Your ESP32 with Arduino IDE
 
