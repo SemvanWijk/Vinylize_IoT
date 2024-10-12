@@ -55,11 +55,43 @@ You will need to install the following libraries:
 <img height="200px" src="sketch.png"> <br />
 <br /><br /><br />
 
+# Step 5: Assemble your board
+Take your board and ledstrip and do the following:
+- Put the GND cable on a GND pin
+- Put the +5V cable on a 3V3 pin
+- Put the DIN cable on any of your D pins, I used D5, as its closest to the rest of used pins, but it doesnt really matter which one you use.
 
-# Step 5: Code setup
-- Copy the code
 
 
+
+# Step 6: Code setup
+- Copy the code and adjust the SSID to the name of your wifi network, Wifi password to the respective and Bot token to the token you recieved from the botfather. The token should follow this structure: XXXXX:XXXXXXXXXXXXXXX
+- Make sure the NUMPIXELS is equal to the amount of LEDs on your strip, 15 in my case.
+- Adjust LED_PIN to the pin to which you added your ledstrip, the D5 pin in my case.
+
+
+```
+#include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <UniversalTelegramBot.h>
+#include <Adafruit_NeoPixel.h>
+
+// WiFi credentials
+#define WIFI_SSID "your-SSID"
+#define WIFI_PASSWORD "your-PASSWORD"
+
+// Telegram bot token
+#define BOT_TOKEN "your-telegram-bot-token"
+
+// Pin connected to the NeoPixel strip
+#define LED_PIN 5
+#define NUMPIXELS 15  // Number of LEDs on the NeoPixel strip
+
+Adafruit_NeoPixel strip(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOT_TOKEN, client);
+```
 
 
 
