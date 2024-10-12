@@ -1,7 +1,7 @@
 # Vinylize_IoT
 
 
-With This guide i will show you how to control a ledstrip using a telegram bot, to simulate a digitally controlled vinyl record player. You wil be able to change the album and automatically switch to that albums RPM, aswell as adjusting the volume.
+With this guide i will show you how to control a ledstrip using a telegram bot, to simulate a digitally controlled vinyl record player. You wil be able to change the album and automatically switch to that albums RPM, aswell as adjusting the volume.
 
 Requirements:
 - ESP32 DevKit V1 board
@@ -17,9 +17,11 @@ Requirements:
 - Open Telegram and search for the BotFather.
 - Use the command "/newbot" to create a new bot.
 - Give the bot a name and username.
-- Save the bot token, which will be used in your code to connect to the bot.
+- Save the bot token, which will be used in your code to connect to the bot.<br /><br />
+<img height="500px" src="botfather.jpeg"> <br />
   
-You can now message your new bot. Make sure you are chatting with your bit, and not with the BotFather.
+You can now message your new bot. Make sure you are chatting with your own bot, and not with the BotFather. To get that response from your own bot, you will have to keep following the guide.
+
 <br /><br /><br />
 
 # Step 2: Set Up Your ESP32 with Arduino IDE
