@@ -479,11 +479,14 @@ void loop() {
 ## Step 13: Discogs API
 The code works pretty well right now, but we only have a couple different LPs. On top off that, we had to add all of these ourselves, which means that if we want 100 records, we would be here for a while. That were APIs come in, as they already have this data for us. APIs (Application Programming Interfaces) enable communication between software systems, allowing them to share data and functionality seamlessly. Discogs is an online database and marketplace for music releases, focusing on vinyl records, CDs, and other formats. They just so happen to have an API that we can use in our code, so that we can have acces to all of their data.
 - Visit https://www.discogs.com/settings/developers and click the "Generate new Token" button to get your own API Key.
-<img height="400px" width="auto" src="get_api.png"><br /><br />
+<img height="400px" width="auto" src="get_api.png"><br />
+<br /><br /><br />
 
+## Step 14: Extra Libraries
 Now that we have our API key, we need to add it to our code. However, we need to install some new libraries first. Go to your library manager and install the following libraries:
-- Arduino_Json
-- ArduinoHttpClient
-|<img height="400px" width="auto" src="chat.jpeg"> |<img height="400px" width="auto" src="chat_result.jpeg">|<br />
+- Arduino_Json: This library simplifies working with JSON data in Arduino projects, which is what is used when orking with APIs. 
+- ArduinoHttpClient: This library allows Arduino devices to send and receive HTTP requests and responses.
+<br /><br />
+|<img height="400px" width="auto" src="arduino_json.png"> |<img height="400px" width="auto" src="http_client.png">|<br />
 
 
