@@ -330,8 +330,9 @@ WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
 ```
 
-If your board has succesfully connected to the wifi, you can start messaging your Telegram bot.
-
+If your board has succesfully connected to the wifi, you can start messaging your Telegram bot. In my case, i asked the bot to put on Elvis Presley, which has an RPM of 78, which we decided to make red. I then asked it to lower the voluem five times and raise it once, which resulted in the LED strip to be red, with 4 pixels turned off.<br /><br />
+|<img height="400px" width="auto" src="chat.jpeg"> |<img height="400px" width="auto" src="chat_result.jpeg">|<br />
+<br /><br /><br />
 
 
 ## Code up Until Now
