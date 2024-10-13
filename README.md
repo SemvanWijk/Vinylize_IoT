@@ -280,7 +280,18 @@ void loop() {
 Your now done! Run the code by pressing the arrow on the top left as seen below.<br /><br />
 <img height="300px" src="run.png"> <br /><br />
 This should give you an output message, as seen below.<br /><br />
-<img height="300px" src="compiling.png"> <br />
+<img height="300px" src="compiling.png"> <br /><br />
+Now wait until compiling is finished. You might run into an error here, like the following one:<br /><br />
+<img height="300px" src="fatal_error.png"> <br /><br />
+The error message "Failed to connect to ESP32: No serial data received" usually means that the ESP32 board is not communicating properly with your computer through the serial port. Here are a few steps to troubleshoot and resolve the issue:
+1. Check the ESP32 is properly connected
+   - Ensure the ESP32 is connected to your computer via a good quality USB cable that supports data transfer, not just charging. Try using a different cable if needed.
+   - Verify that the USB connection is secure at both ends.
+3. Select the correct Port in the Arduino IDE
+   - In Arduino IDE, go to Tools > Port and select the correct serial port associated with your ESP32. This should be labeled as something like COMx on Windows or /dev/cu.SLAB_USBtoUART on macOS.
+   - If you don’t see any available ports, try unplugging the device and plugging it back in.
+5. Select the correct board
+   - Make sure you have selected the correct board from the Tools > Board menu. For ESP32, select DOIT ESP32 DEVKIT V1 or the relevant board you're using.
 
 # alles ging fout hier opeens!!!!!!!!!!!!
 
