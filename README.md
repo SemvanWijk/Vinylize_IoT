@@ -19,23 +19,23 @@ With this guide i will show you how to control a ledstrip using a telegram bot, 
 - Use the command "/newbot" to create a new bot.
 - Give the bot a name and username.
 - Save the bot token, which will be used in your code to connect to the bot.<br /><br />
-<img height="500px" src="botfather.jpeg"> <br />
+<img height="500px" width="auto" src="botfather.jpeg"> <br />
   
 You can now message your new bot. Make sure you are chatting with your own bot, and not with the BotFather. <br /><br />
-<img height="200px" src="bot_dont.jpeg"><br />
+<img height="200px" width="auto" src="bot_dont.jpeg"><br />
 <br />You can click the link to go to your own bot.<br /><br />
-<img height="200px" src="bot_do.jpeg"> <br />
+<img height="200px" width="auto" src="bot_do.jpeg"> <br />
 <br />To get this response from your own bot, you will have to keep following the guide.
 <br /><br /><br />
 
 # Step 2: Set Up Your ESP32 with Arduino IDE
 
 - Go to Tools -> Boards -> Board Manager.<br /><br />
-<img height="300px" src="board_manager.png"> <br />
+<img height="300px" width="auto" src="board_manager.png"> <br />
 - While here, look for esp32 and install esp32 by Espressif Systems.<br /><br />
-<img height="300px" src="board_library.png"> <br />
+<img height="300px" width="auto" src="board_library.png"> <br />
 - Now select DOIT ESP32 DEVKIT V1.<br /><br />
-<img height="300px" src="select_board.png"> <br />
+<img height="300px" width="auto" src="select_board.png"> <br />
 <br /><br /><br />
 
 ## Step 3: Install Libraries
@@ -43,7 +43,7 @@ You can now message your new bot. Make sure you are chatting with your own bot, 
 You will need to install the following libraries:
 - Adafruit NeoPixel: For controlling the NeoPixel LED strip.
 - UniversalTelegramBot: For communication with the Telegram bot.<br /><br />
-|<img height="400px" src="neopixel.png"> |<img height="400px" src="tgbot.png">|
+|<img height="400px" width="auto" src="neopixel.png"> |<img height="400px" src="tgbot.png">|
 
 
 
@@ -52,7 +52,7 @@ You will need to install the following libraries:
 
 ## Step 4: Create a new Sketch
 - Go to file -> New Sketch.<br /><br />
-<img height="200px" src="sketch.png"> <br />
+<img height="200px" width="auto" src="sketch.png"> <br />
 <br /><br /><br />
 
 ## Step 5: Assemble Your board
@@ -60,7 +60,7 @@ Take your board and ledstrip and do the following:
 - Put the GND cable on a GND pin
 - Put the +5V cable on a 3V3 pin
 - Put the DIN cable on any of your D pins, I used D5, as its closest to the rest of used pins, but it doesnt really matter which one you use.<br /><br />
-|<img height="300px" src="board.jpeg"> |<img height="300px" src="cables.jpeg">|<br />
+|<img height="300px" width="auto" src="board.jpeg"> |<img height="300px" src="cables.jpeg">|<br />
 <br /><br /><br />
 
 
@@ -179,7 +179,7 @@ Make sure you copy both of these pieces of code.
 ## Step 10: Void Setup
 In the Void Setup, we start up our board, connect it to the internet, and set up the LED strip and Telegram bot.
 - Open the serial monit and set the Baus rate to 115200.<br /><br />
-|<img height="300px" src="serial_monitor.png"> |<img height="300px" src="baud.png">|<br /><br />
+|<img height="300px" width="auto" src="serial_monitor.png"> |<img height="300px" width="auto" src="baud.png">|<br /><br />
 
 Now put the following code in your file:
 ```
@@ -198,12 +198,16 @@ void setup() {
   // Initialize the NeoPixel LED strip
   strip.begin();
   strip.show();  // Turn off all LEDs initially
+
+  // Allow insecure connection to Telegram servers (ESP32)
+  client.setInsecure();
 }
 ```
 This code does the following:
 - The function starts by initializing serial communication, allowing you to send and receive debug messages to and from the computer’s serial monitor.
 - It then attempts to connect to the specified Wi-Fi network using the provided credentials. If the connection is not successful, it will keep trying, printing messages to indicate its status. Once connected, it confirms this with a message.
 - After establishing a Wi-Fi connection, the function initializes the NeoPixel LED strip, ensuring that all the LEDs are turned off initially.
+- It allows you to make insecure connections to the Telegram servers. Be careful with this, as it could lead to some privacy risks. Only use this line when testing out the code or when using it for personal use.
 <br /><br /><br />
 
 ## Step 11: Void Loop
@@ -278,22 +282,55 @@ void loop() {
 
 ## Step 12: Test it Out!
 Your now done! Run the code by pressing the arrow on the top left as seen below.<br /><br />
-<img height="300px" src="run.png"> <br /><br />
+<img height="300px" width="auto" src="run.png"> <br /><br />
 This should give you an output message, as seen below.<br /><br />
-<img height="300px" src="compiling.png"> <br /><br />
+<img height="300px" width="auto" src="compiling.png"> <br /><br />
 Now wait until compiling is finished. You might run into an error here, like the following one:<br /><br />
-<img height="300px" src="fatal_error.png"> <br /><br />
+<img height="300px" width="auto" src="fatal_error.png"> <br /><br />
 The error message "Failed to connect to ESP32: No serial data received" usually means that the ESP32 board is not communicating properly with your computer through the serial port. Here are a few steps to troubleshoot and resolve the issue:
 1. Check the ESP32 is properly connected
-   - Ensure the ESP32 is connected to your computer via a good quality USB cable that supports data transfer, not just charging. Try using a different cable if needed.
+   - Ensure the ESP32 is connected to your computer via a good quality USB cable that supports data transfer, not just charging. Try using       a different cable if needed.
    - Verify that the USB connection is secure at both ends.
-3. Select the correct Port in the Arduino IDE
-   - In Arduino IDE, go to Tools > Port and select the correct serial port associated with your ESP32. This should be labeled as something like COMx on Windows or /dev/cu.SLAB_USBtoUART on macOS.
+2. Select the correct Port in the Arduino IDE
+   - In Arduino IDE, go to Tools > Port and select the correct serial port associated with your ESP32. This should be labeled as something       like COMx on Windows or /dev/cu.SLAB_USBtoUART on macOS.
    - If you don’t see any available ports, try unplugging the device and plugging it back in.
-5. Select the correct board
-   - Make sure you have selected the correct board from the Tools > Board menu. For ESP32, select DOIT ESP32 DEVKIT V1 or the relevant board you're using.
+3. Select the correct board
+   - Make sure you have selected the correct board from the Tools > Board menu. For ESP32, select DOIT ESP32 DEVKIT V1 or the relevant           board you're using.
+  
+If you have that resolved, the file should start uploading:<br /><br />
+<img height="250px" width="auto" src="upload.png"> <br /><br />
 
-# alles ging fout hier opeens!!!!!!!!!!!!
+The upload is complete when you see the following:<br /><br />
+<img height="250px" width="auto" src="upload_complete.png"> <br /><br />
+
+Now head to the serial monitor. You should see that your board is trying to connect to Wifi:<br /><br />
+<img height="250px" width="auto" src="wifi_connection.png"> <br /><br />
+
+If you get any errors here, you might have to look at whether ot not you copied the following code and edited it correctly:
+```
+#include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <UniversalTelegramBot.h>
+#include <Adafruit_NeoPixel.h>
+
+// WiFi credentials
+#define WIFI_SSID "your-SSID"
+#define WIFI_PASSWORD "your-PASSWORD"
+
+// Telegram bot token
+#define BOT_TOKEN "your-telegram-bot-token"
+
+// Pin connected to the NeoPixel strip
+#define LED_PIN 5
+#define NUMPIXELS 15  // Number of LEDs on the NeoPixel strip
+
+Adafruit_NeoPixel strip(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOT_TOKEN, client);
+```
+
+If your board has succesfully connected to the wifi, you can start messaging your Telegram bot.
 
 
 
@@ -372,7 +409,10 @@ void setup() {
   Serial.println("Connected to WiFi");
 
   strip.begin();
-  strip.show();  
+  strip.show();
+
+  // Allow insecure connection to Telegram servers (ESP32)
+  client.setInsecure();
 }
 
 void loop() {
