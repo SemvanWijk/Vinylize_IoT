@@ -488,5 +488,40 @@ Now that we have our API key, we need to add it to our code. However, we need to
 - ArduinoHttpClient: This library allows Arduino devices to send and receive HTTP requests and responses.
 <br /><br />
 |<img height="400px" width="auto" src="arduino_json.png"> |<img height="400px" width="auto" src="http_client.png">|<br />
+<br /><br /><br />
+
+## Step 15: Updated Setup
+- Add the code below to the top of yout code to add our new libraries and define our API:
+```
+#include <WiFi.h>
+#include <WiFiClientSecure.h>
+#include <UniversalTelegramBot.h>
+#include <Adafruit_NeoPixel.h>
+#include <ArduinoJson.h>
+#include <HTTPClient.h>
+
+// WiFi credentials
+#define WIFI_SSID "your-SSID"
+#define WIFI_PASSWORD "your-PASSWORD"
+
+// Telegram bot token
+#define BOT_TOKEN "your-telegram-bot-token"
+
+// Discogs API credentials
+#define DISCOGS_API_URL "https://api.discogs.com/"
+#define DISCOGS_API_TOKEN "your-API-TOKEN"
 
 
+// Pin connected to the NeoPixel strip
+#define LED_PIN 5
+#define NUMPIXELS 15  // Number of LEDs on the NeoPixel strip
+
+Adafruit_NeoPixel strip(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
+
+WiFiClientSecure client;
+UniversalTelegramBot bot(BOT_TOKEN, client);
+```
+Make sure you change your ssid, wifi password, bot token and API token
+<br /><br /><br />
+
+## Step 16:
