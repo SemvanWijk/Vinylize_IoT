@@ -278,7 +278,9 @@ void loop() {
 
 ## Step 12: Test it Out!
 Your now done! Run the code by pressing the arrow on the top left as seen below.<br /><br />
-<img height="300px" src="run.png"> <br />
+<img height="300px" src="run.png"> <br /><br />
+This should give you an output message, as seen below.<br /><br />
+<img height="300px" src="compiling.png"> <br />
 
 # alles ging fout hier opeens!!!!!!!!!!!!
 
