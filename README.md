@@ -179,8 +179,9 @@ Make sure you copy both of these pieces of code.
 ## Step 10: Void Setup
 In the Void Setup, we start up our board, connect it to the internet, and set up the LED strip and Telegram bot.
 - Open the serial monit and set the Baus rate to 115200.<br /><br />
-|<img height="300px" src="serial_monitor.png"> |<img height="300px" src="baud.png">|<br />
-- Now put the following code in your file:
+|<img height="300px" src="serial_monitor.png"> |<img height="300px" src="baud.png">|<br /><br />
+
+Now put the following code in your file:
 ```
 void setup() {
   // Initialize serial communication for debugging
@@ -197,20 +198,82 @@ void setup() {
   // Initialize the NeoPixel LED strip
   strip.begin();
   strip.show();  // Turn off all LEDs initially
-  strip.setBrightness(50);  // Optional: Set brightness level (0-255)
-
-  // Setup Telegram Bot
-  client.setInsecure();  // Bypass SSL checks
-  Serial.println("Telegram bot ready");
 }
-``` 
-
-
-
-
+```
+This code does the following:
+- The function starts by initializing serial communication, allowing you to send and receive debug messages to and from the computer’s serial monitor.
+- It then attempts to connect to the specified Wi-Fi network using the provided credentials. If the connection is not successful, it will keep trying, printing messages to indicate its status. Once connected, it confirms this with a message.
+- After establishing a Wi-Fi connection, the function initializes the NeoPixel LED strip, ensuring that all the LEDs are turned off initially.
+<br /><br /><br />
 
 ## Step 11: Void Loop
+Almost done now. We just need to add the Loop function. This function continuously checks for new messages sent to the Telegram Bot, which then responds accordingly.
+```
+void loop() {
+  // Check for new messages from Telegram
+  int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
 
+  for (int i = 0; i < numNewMessages; i++) {
+    String text = bot.messages[i].text;
+    String chat_id = bot.messages[i].chat_id;
+
+    // Handle "Volume up" command
+    if (text == "Volume up") {
+      if (currentVolume < NUMPIXELS) {
+        currentVolume++;
+        setVolumeLevel(currentVolume);
+        bot.sendMessage(chat_id, "Volume increased", "");
+      } else {
+        bot.sendMessage(chat_id, "Volume is at maximum", "");
+      }
+    }
+
+    // Handle "Volume down" command
+    else if (text == "Volume down") {
+      if (currentVolume > 0) {
+        currentVolume--;
+        setVolumeLevel(currentVolume);
+        bot.sendMessage(chat_id, "Volume decreased", "");
+      } else {
+        bot.sendMessage(chat_id, "Volume is at minimum", "");
+      }
+    }
+
+    // Handle "Put on [LP name]" command
+    else if (text.startsWith("Put on")) {
+      String lpName = text.substring(7);  // Extract the LP name from the message
+
+      // Search for the LP in the records list and change LED color based on RPM
+      bool lpFound = false;
+      for (int j = 0; j < sizeof(records) / sizeof(records[0]); j++) {
+        if (records[j].name == lpName) {
+          currentColor = setColorForRPM(records[j].rpm);  // Set currentColor to the color based on RPM
+          currentVolume = NUMPIXELS;  // Reset volume to maximum (all LEDs on)
+          bot.sendMessage(chat_id, "Playing " + lpName + " at " + records[j].rpm + " RPM", "");
+          lpFound = true;
+          break;
+        }
+      }
+      if (!lpFound) {
+        bot.sendMessage(chat_id, "LP not found", "");
+      }
+    }
+
+    // Handle unrecognized commands
+    else {
+      bot.sendMessage(chat_id, "Unknown command. Please try 'Volume up', 'Volume down', or 'Put on [LP]'", "");
+    }
+  }
+
+  delay(1000);  // Adjust delay to reduce polling frequency if needed
+}
+```
+- The loop begins by checking for new messages from the Telegram bot.
+- It then looks at which message has been sent. The messages it knows are "Volume up", "Volume down" and "Put on [LP name]". If a different message is sent, the bot responds with "Unknown command. Please try 'Volume up', 'Volume down', or 'Put on [LP]'".
+- Based on which command has been sent, the bot can do a few things:
+  - If the command is "Volume up", the bot checks if the current volume is below the maximum. If so, it increments currentVolume, updates the LED strip, and sends a confirmation message; otherwise, it informs the user that the volume is at maximum.
+  - For the "Volume down" command, the bot decrements currentVolume if it’s above zero, updates the LED strip, and sends a confirmation message. If the volume is already at minimum, it notifies the user.
+  - When the command is "Put on [LP name]", the bot extracts the LP name and searches the predefined list of records for a match. If found, it updates the LED color based on the record's RPM, resets the volume to maximum, and sends a confirmation message; if not found, it sends an error message.
 
 
 
@@ -296,49 +359,65 @@ void setup() {
 
   strip.begin();
   strip.show();  
-  strip.setBrightness(50);  
-
-  client.setInsecure();  
-  Serial.println("Telegram bot ready");
 }
 
 void loop() {
+  // Check for new messages from Telegram
   int numNewMessages = bot.getUpdates(bot.last_message_received + 1);
 
-  while (numNewMessages) {
-    Serial.println("Got a message");
-    
-    for (int i = 0; i < numNewMessages; i++) {
-      String text = bot.messages[i].text;
-      String fromName = bot.messages[i].from_name;
+  for (int i = 0; i < numNewMessages; i++) {
+    String text = bot.messages[i].text;
+    String chat_id = bot.messages[i].chat_id;
 
-      if (text == "/volume_up") {
-        if (currentVolume < NUMPIXELS) {
-          currentVolume++;
-          updateVolumeDisplay();
-        }
-      }
-
-      if (text == "/volume_down") {
-        if (currentVolume > 0) {
-          currentVolume--;
-          updateVolumeDisplay();
-        }
-      }
-
-      if (text.startsWith("Put on ")) {
-        String albumName = text.substring(7);
-        for (int j = 0; j < sizeof(records) / sizeof(records[0]); j++) {
-          if (albumName == records[j].name) {
-            setColorByRPM(records[j].rpm);
-            break;
-          }
-        }
+    // Handle "Volume up" command
+    if (text == "Volume up") {
+      if (currentVolume < NUMPIXELS) {
+        currentVolume++;
+        setVolumeLevel(currentVolume);
+        bot.sendMessage(chat_id, "Volume increased", "");
+      } else {
+        bot.sendMessage(chat_id, "Volume is at maximum", "");
       }
     }
 
-    numNewMessages = bot.getUpdates(bot.last_message_received + 1);
+    // Handle "Volume down" command
+    else if (text == "Volume down") {
+      if (currentVolume > 0) {
+        currentVolume--;
+        setVolumeLevel(currentVolume);
+        bot.sendMessage(chat_id, "Volume decreased", "");
+      } else {
+        bot.sendMessage(chat_id, "Volume is at minimum", "");
+      }
+    }
+
+    // Handle "Put on [LP name]" command
+    else if (text.startsWith("Put on")) {
+      String lpName = text.substring(7);  // Extract the LP name from the message
+
+      // Search for the LP in the records list and change LED color based on RPM
+      bool lpFound = false;
+      for (int j = 0; j < sizeof(records) / sizeof(records[0]); j++) {
+        if (records[j].name == lpName) {
+          currentColor = setColorForRPM(records[j].rpm);  // Set currentColor to the color based on RPM
+          currentVolume = NUMPIXELS;  // Reset volume to maximum (all LEDs on)
+          bot.sendMessage(chat_id, "Playing " + lpName + " at " + records[j].rpm + " RPM", "");
+          lpFound = true;
+          break;
+        }
+      }
+      if (!lpFound) {
+        bot.sendMessage(chat_id, "LP not found", "");
+      }
+    }
+
+    // Handle unrecognized commands
+    else {
+      bot.sendMessage(chat_id, "Unknown command. Please try 'Volume up', 'Volume down', or 'Put on [LP]'", "");
+    }
   }
+
+  delay(1000);  // Adjust delay to reduce polling frequency if needed
 }
 ```
 
