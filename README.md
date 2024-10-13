@@ -277,7 +277,10 @@ void loop() {
 <br /><br /><br />
 
 ## Step 12: Test it Out!
+Your now done! Run the code by pressing the arrow on the top left as seen below.<br /><br />
+<img height="300px" src="run.png"> <br />
 
+# alles ging fout hier opeens!!!!!!!!!!!!
 
 
 
