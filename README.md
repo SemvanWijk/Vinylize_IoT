@@ -274,9 +274,7 @@ void loop() {
   - If the command is "Volume up", the bot checks if the current volume is below the maximum. If so, it increments currentVolume, updates the LED strip, and sends a confirmation message; otherwise, it informs the user that the volume is at maximum.
   - For the "Volume down" command, the bot decrements currentVolume if it’s above zero, updates the LED strip, and sends a confirmation message. If the volume is already at minimum, it notifies the user.
   - When the command is "Put on [LP name]", the bot extracts the LP name and searches the predefined list of records for a match. If found, it updates the LED color based on the record's RPM, resets the volume to maximum, and sends a confirmation message; if not found, it sends an error message.
-
-
-
+<br /><br /><br />
 
 ## Step 12: Test it Out!
 
