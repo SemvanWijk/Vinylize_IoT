@@ -563,4 +563,25 @@ int getRecordRPM(String albumName) {
 }
 ```
 This function takes an album name, sends a request to the Discogs API to search for that album, and tries to find its RPM (speed: 33, 45, or 78). If the request is successful and the album is found, it looks for RPM information in the format section of the API response. If it finds the RPM, it returns the correct value (33, 45, or 78). If it can't find the RPM or the request fails, it returns -1 to indicate an error.<br />
+We also need to change our loop up a little bit by adding the following code, replacing the final elseif of our loop:
+```
+// Handle "Put on [LP name]" command (Modified to use Discogs API)
+    else if (text.startsWith("Put on")) {
+      String lpName = text.substring(7);  // Extract the LP name from the message
+
+      // Get RPM from Discogs API
+      int rpm = getRecordRPM(lpName);
+
+      if (rpm != -1) {
+        setColorByRPM(rpm);         // Set LED color based on RPM
+        currentVolume = NUMPIXELS;  // Reset volume to maximum (all LEDs on)
+        bot.sendMessage(chat_id, "Playing " + lpName + " at " + String(rpm) + " RPM", "");
+      } else {
+        bot.sendMessage(chat_id, "LP not found or RPM not available", "");
+      }
+    }
+```
 You might run into an error, like the one below:<br /><br />
+<img height="500px" width="auto" src="not_found.jpeg"> <br /><br />
+This error means that the API was unable to find your Album or the respective RPM, causing it to return that -1, which leads to the message "LP not found or RPM not available".
+
