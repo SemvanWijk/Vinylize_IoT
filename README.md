@@ -516,4 +516,51 @@ Make sure you change your ssid, wifi password, bot token and API token.
 <br /><br /><br />
 
 ## Step 16: Adding the API
-We'll now be adding the code for the API, which will be replacing the code we used to add our own records.
+We'll now be adding the code for the API, which will be replacing the code we used to add our own records. 
+- Remove the code with you rown records, and add the following code at the bottom:
+```
+int getRecordRPM(String albumName) {
+  String apiURL = "https://api.discogs.com/database/search?q=" + albumName + "&token=" + DISCOGS_TOKEN;
+
+  HTTPClient http;
+  http.begin(apiURL);
+  int httpCode = http.GET();  // Send the GET request
+
+  if (httpCode > 0) {
+    String payload = http.getString();  // Get the response payload
+
+    // Parse the payload (JSON response) to get the RPM information
+    DynamicJsonDocument doc(2048);
+    deserializeJson(doc, payload);
+
+    // Look for the first result in the JSON response
+    if (doc["results"].size() > 0) {
+      JsonObject firstResult = doc["results"][0];
+
+      // Check if formats are available in the first result
+      if (firstResult.containsKey("format")) {
+        JsonArray formats = firstResult["format"];
+
+        // Check for RPM values in formats
+        for (JsonVariant format : formats) {
+          String formatStr = format.as<String>();
+          if (formatStr.indexOf("33") != -1) {
+            return 33;
+          } else if (formatStr.indexOf("45") != -1) {
+            return 45;
+          } else if (formatStr.indexOf("78") != -1) {
+            return 78;
+          }
+        }
+      }
+    }
+  } else {
+    Serial.println("Error in HTTP request");
+  }
+
+  http.end();  // End the connection
+  return -1;   // Return -1 if RPM is not found
+}
+```
+This function takes an album name, sends a request to the Discogs API to search for that album, and tries to find its RPM (speed: 33, 45, or 78). If the request is successful and the album is found, it looks for RPM information in the format section of the API response. If it finds the RPM, it returns the correct value (33, 45, or 78). If it can't find the RPM or the request fails, it returns -1 to indicate an error.<br />
+You might run into an error, like the one below:<br /><br />
