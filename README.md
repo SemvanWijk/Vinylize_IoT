@@ -484,7 +484,7 @@ The code works pretty well right now, but we only have a couple different LPs. O
 
 ## Step 14: Extra Libraries
 Now that we have our API key, we need to add it to our code. However, we need to install some new libraries first. Go to your library manager and install the following libraries:
-- Arduino_Json: This library simplifies working with JSON data in Arduino projects, which is what is used when orking with APIs. 
+- Arduino_Json: This library simplifies working with JSON data in Arduino projects, which is what is used when working with APIs. 
 - ArduinoHttpClient: This library allows Arduino devices to send and receive HTTP requests and responses.
 <br /><br />
 |<img height="400px" width="auto" src="arduino_json.png"> |<img height="400px" width="auto" src="http_client.png">|<br />
