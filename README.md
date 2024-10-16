@@ -335,8 +335,8 @@ If your board has succesfully connected to the wifi, you can start messaging you
 <br /><br /><br />
 
 
-## Code up Until Now
-With everything explained, here is the complete code that has been used until now:
+### Code up Until Now
+With everything explained, here is the complete code that has been used up until now:
 ```
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
@@ -497,31 +497,23 @@ Now that we have our API key, we need to add it to our code. However, we need to
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 #include <Adafruit_NeoPixel.h>
-#include <ArduinoJson.h>
 #include <HTTPClient.h>
+#include <ArduinoJson.h>
 
-// WiFi credentials
 #define WIFI_SSID "your-SSID"
 #define WIFI_PASSWORD "your-PASSWORD"
-
-// Telegram bot token
 #define BOT_TOKEN "your-telegram-bot-token"
+#define DISCOGS_TOKEN "your-discogs-api-token"
 
-// Discogs API credentials
-#define DISCOGS_API_URL "https://api.discogs.com/"
-#define DISCOGS_API_TOKEN "your-API-TOKEN"
-
-
-// Pin connected to the NeoPixel strip
 #define LED_PIN 5
-#define NUMPIXELS 15  // Number of LEDs on the NeoPixel strip
+#define NUMPIXELS 15
 
 Adafruit_NeoPixel strip(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
-
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOT_TOKEN, client);
 ```
-Make sure you change your ssid, wifi password, bot token and API token
+Make sure you change your ssid, wifi password, bot token and API token.
 <br /><br /><br />
 
-## Step 16:
+## Step 16: Adding the API
+We'll now be adding the code for the API, which will be replacing the code we used to add our own records.
