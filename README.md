@@ -584,4 +584,7 @@ We also need to change our loop up a little bit by adding the following code, re
 You might run into an error, like the one below:<br /><br />
 <img height="500px" width="auto" src="not_found.jpeg"> <br /><br />
 This error means that the API was unable to find your Album or the respective RPM, causing it to return that -1, which leads to the message "LP not found or RPM not available".
-<br />br /><br />
+<br /><br /><br />
+
+## Sources
+https://chatgpt.com/share/6711622b-a9d0-8003-8014-878a47d3702e
